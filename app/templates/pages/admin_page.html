@@ -5,19 +5,40 @@
 
 <p>This page is accessible to authenticated users with the 'admin' role.</p>
 
-<p>Users:</p>
+<h2>Users:</h2>
 
 {% for row in usersAndRoles %}
-<ul>
-    <li>
+    <div>
         <form name="admin-form" action="/admin" method="post">
-            <input type="hidden" name="user-id" value={{ row.id }} />
-            <input type="hidden" name="action-type" value={% if row.admin %} "remove-admin" {% else %} "add-admin" {% endif %}/>
             <span>{{ row.name | safe}}</span>
-            <input type="submit" value={% if row.admin %} "remove admin right" {% else %} "Give admin right" {% endif %} {% if current_user.id == row.id %} disabled {% endif %}>
+            <input type="hidden" name="user-id" value={{ row.id }} />
+            <button type="submit" name="action" value={% if row.admin %}
+                "remove;admin"
+            {% else %}
+                "give;admin"
+            {% endif %}
+            {% if current_user.id == row.id %}
+                disabled
+            {% endif %} >{% if row.admin %}
+            "Remove admin role"
+            {% else %}
+            "Give admin role"
+            {% endif %}</button>
+            <button type="submit" name="action" value={% if row.regular_user %}
+                "remove;regular"
+            {% else %}
+                "give;regular"
+            {% endif %}
+            {% if current_user.id == row.id %}
+                disabled
+            {% endif %} >{% if row.regular_user %}
+            "Remove regular user role"
+            {% else %}
+            "Give regular user role"
+            {% endif %}</button>
         </form>
-    </li>
-</ul>
+
+    </div>
 {% endfor %}
 
 {% endblock %}

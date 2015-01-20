@@ -9,7 +9,8 @@ def create_label(user):
     return {
         'id' : user.id,
         'name': user.first_name + ' ' + user.last_name,
-        'admin':'admin' in roles
+        'admin':'admin' in roles,
+        'regular_user':'regular' in roles
     }
 
 def get_users_and_roles():

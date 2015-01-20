@@ -5,40 +5,46 @@ from flask_user import current_user
 
 def process_admin_page_request(req):
     user_id = req.form.get('user-id', default=None, type=int)
-    action = req.form.get('action-type', default=None).encode('ascii','ignore')
-    print "######## user-id: %s, action: %s"%(user_id, action)
-    if user_id and action:
+    action_and_role = req.form.get('action', default=None).encode('ascii','ignore')
+    if user_id and action_and_role:
+        action, role = get_action_and_role(action_and_role)
         if current_user.id == user_id:
-            # raise some exception
             return
-        if action == 'add-admin':
-            add_admin_role_to_user(user_id)
-        elif action == 'remove-admin':
-            remove_admin_role_from_user(user_id)
+        if action == 'give':
+            add_role_to_user(user_id, role)
+        elif action == 'remove':
+            remove_role_from_user(user_id, role)
         else:
             print "This should not happen"
 
-def remove_admin_role_from_user(user_id):
-    admin_role_id = get_admin_role_id()
-    if admin_role_id:
-        user_role_id = get_user_role_id_by_user_and_role(user_id, admin_role_id)
+def get_action_and_role(action_and_role):
+    get_action_and_role_arr = action_and_role. split(';')
+    return get_action_and_role_arr[0],get_action_and_role_arr[1]
+
+def remove_role_from_user(user_id, role):
+    role_id = get_role_id(role)
+    if role_id:
+        user_role_id = get_user_role_id_by_user_and_role(user_id, role_id)
         if user_role_id:
             remove_user_role(user_role_id)
 
-def add_admin_role_to_user(user_id):
-    admin_role_id = get_admin_role_id()
-    if admin_role_id:
-        if not user_role_already_exists(user_id, admin_role_id):
-            insert_user_role(user_id,admin_role_id)
+def add_role_to_user(user_id, role):
+    role_id = get_role_id(role)
+    if role_id:
+        print user_id, role_id
+        if not user_role_already_exists(user_id, role_id):
+            print "SUCCCCC"
+            insert_user_role(user_id,role_id)
 
-def get_admin_role_id():
-    admin_role_id = db.session.query(Role).filter(Role.name=="admin").first()
-    if admin_role_id:
-        return admin_role_id.id
+def get_role_id(role):
+    role_id = db.session.query(Role).filter(Role.name==role).first()
+    if role_id:
+        return role_id.id
     return None
 
 def user_role_already_exists(user_id, role_id):
     user_role_id = get_user_role_id_by_user_and_role(user_id, role_id)
+    print user_role_id
     return True if user_role_id else False
 
 def get_user_role_id_by_user_and_role(user_id, role_id):
