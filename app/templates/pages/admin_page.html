@@ -7,38 +7,39 @@
 
 <h2>Users:</h2>
 
+<table class="table">
 {% for row in usersAndRoles %}
-    <div>
-        <form name="admin-form" action="/admin" method="post">
-            <span>{{ row.name | safe}}</span>
-            <input type="hidden" name="user-id" value={{ row.id }} />
-            <button type="submit" name="action" value={% if row.admin %}
-                "remove;admin"
-            {% else %}
-                "give;admin"
-            {% endif %}
-            {% if current_user.id == row.id %}
-                disabled
-            {% endif %} >{% if row.admin %}
-            "Remove admin role"
-            {% else %}
-            "Give admin role"
-            {% endif %}</button>
-            <button type="submit" name="action" value={% if row.regular_user %}
-                "remove;regular"
-            {% else %}
-                "give;regular"
-            {% endif %}
-            {% if current_user.id == row.id %}
-                disabled
-            {% endif %} >{% if row.regular_user %}
-            "Remove regular user role"
-            {% else %}
-            "Give regular user role"
-            {% endif %}</button>
-        </form>
-
-    </div>
+        <tr>
+            <form name="admin-form" action="/admin" method="post">
+                <td><span>{{ row.name | safe}}</span></td>
+                <input type="hidden" name="user-id" value={{ row.id }} />
+                <td><button class="btn btn-default btn-own" type="submit" name="action" value={% if row.admin %}
+                    "remove;admin"
+                {% else %}
+                    "give;admin"
+                {% endif %}
+                {% if current_user.id == row.id %}
+                    disabled
+                {% endif %} >{% if row.admin %}
+                Remove admin role
+                {% else %}
+                Give admin role
+                {% endif %}</button></td>
+                <td><button class="btn btn-default btn-own" type="submit" name="action" value={% if row.regular_user %}
+                    "remove;regular"
+                {% else %}
+                    "give;regular"
+                {% endif %}
+                {% if current_user.id == row.id %}
+                    disabled
+                {% endif %} >{% if row.regular_user %}
+                Remove regular user role
+                {% else %}
+                Give regular user role
+                {% endif %}</button></td>
+            </form>
+        </tr>
 {% endfor %}
+</table>
 
 {% endblock %}
