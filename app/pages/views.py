@@ -3,10 +3,14 @@
 # Authors: Ling Thio <ling.thio@gmail.com>
 
 
-from flask import render_template
+from flask import render_template, request
 from flask_user import login_required, roles_required
 
 from app.app_and_db import app
+
+from app.pages.adminpage import render_admin_page
+from app.pages.adminpagecontroller import process_admin_page_request
+
 
 
 # The Home page is accessible to anyone
@@ -21,7 +25,9 @@ def member_page():
     return render_template('pages/member_page.html')
 
 # The Admin page is accessible to users with the 'admin' role
-@app.route('/admin')
+@app.route('/admin', methods=['GET', 'POST'])
 @roles_required('admin')    # Limits access to users with the 'admin' role
 def admin_page():
-    return render_template('pages/admin_page.html')
+    if request.method == "POST" :
+        process_admin_page_request(request)
+    return render_admin_page()

@@ -5,24 +5,19 @@
 
 <p>This page is accessible to authenticated users with the 'admin' role.</p>
 
-<p>The code:</p>
-<pre>
-# The Home page is accessible to anyone
-@app.route('/')
-def home_page():
-    return render_template('pages/home_page.html')
+<p>Users:</p>
 
-# The Member page is accessible to authenticated users (users that have logged in)
-@app.route('/member')
-@login_required             # Limits access to authenticated users
-def member_page():
-    return render_template('pages/member_page.html')
-
-# The Admin page is accessible to users with the 'admin' role
-@app.route('/admin')
-@roles_required('admin')    # Limits access to users with the 'admin' role
-def admin_page():
-    return render_template('pages/admin_page.html')
-</pre>
+{% for row in usersAndRoles %}
+<ul>
+    <li>
+        <form name="admin-form" action="/admin" method="post">
+            <input type="hidden" name="user-id" value={{ row.id }} />
+            <input type="hidden" name="action-type" value={% if row.admin %} "remove-admin" {% else %} "add-admin" {% endif %}/>
+            <span>{{ row.name | safe}}</span>
+            <input type="submit" value={% if row.admin %} "remove admin right" {% else %} "Give admin right" {% endif %} {% if current_user.id == row.id %} disabled {% endif %}>
+        </form>
+    </li>
+</ul>
+{% endfor %}
 
 {% endblock %}

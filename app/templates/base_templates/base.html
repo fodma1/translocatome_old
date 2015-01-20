@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MyApp</title>
+    <title>Translocatome</title>
 
     <!-- Bootstrap -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/app/app.css" rel="stylesheet">
+    <script src="/static/app/app.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,7 +22,7 @@
 
 <body>
     <div id="header-div" class="clearfix with-margins">
-        <div class="pull-left"><a href="{{ url_for('home_page') }}"><span class="header-title">MyApp</span></a></div>
+        <div class="pull-left"><a href="{{ url_for('home_page') }}"><span class="header-title">Translocatome</span></a></div>
         <div class="pull-right">
             {% if current_user.is_authenticated() %}
                 <a href="{{ url_for('user_profile_page') }}">{{ current_user.first_name or current_user.user_auth.username }}</a>
@@ -61,8 +62,8 @@
     <br/>
     <hr class="no-margins"/>
     <div id="footer-div" class="clearfix with-margins">
-        <div class="pull-left">MyApp v1.0</div>
-        <div class="pull-right">&copy; 2014 MyCorp</div>
+        <div class="pull-left">Translocatome v0.0</div>
+        <div class="pull-right">&copy; 2015 SOTE</div>
     </div>
 
 </html>

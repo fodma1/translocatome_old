@@ -64,3 +64,6 @@ target/
 .idea/
 *.sqlite
 app/config/local_settings.py
+
+# Init bash script
+init.sh

@@ -7,6 +7,7 @@ from flask_wtf import Form
 from wtforms import StringField, SubmitField, validators
 
 
+
 # Define the User registration form
 # It augments the Flask-User RegisterForm with additional fields
 class MyRegisterForm(RegisterForm):

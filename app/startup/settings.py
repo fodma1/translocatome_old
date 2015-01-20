@@ -5,7 +5,7 @@ import os
 # Environment specific settings
 # *****************************
 
-APP_NAME = "AppName"
+APP_NAME = "Translocatome"
 
 # The settings below can (and should) be over-ruled by OS environment variable settings
 
