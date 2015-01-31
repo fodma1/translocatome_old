@@ -5,6 +5,8 @@
 
 <p>This page is accessible to authenticated users with the 'admin' role.</p>
 
+<p>You can add/remove admin rights for other users (except yourself).</p>
+
 <h2>Users:</h2>
 
 <table class="table">
@@ -13,24 +15,24 @@
             <form name="admin-form" action="/admin" method="post">
                 <td><span>{{ row.name | safe}}</span></td>
                 <input type="hidden" name="user-id" value={{ row.id }} />
+                <td><button class="btn btn-default btn-own" type="submit" name="action" value={% if row.regular_user %}
+                "remove;regular"
                 <td><button class="btn btn-default btn-own" type="submit" name="action" value={% if row.admin %}
                     "remove;admin"
-                {% else %}
+                    {% else %}
                     "give;admin"
-                {% endif %}
-                {% if current_user.id == row.id %}
+                    {% endif %}
+                    {% if current_user.id == row.id or not row.regular_user%}
                     disabled
-                {% endif %} >{% if row.admin %}
-                Remove admin role
+                    {% endif %} >{% if row.admin %}
+                    Remove admin role
+                {% endif %}</button></td>
                 {% else %}
                 Give admin role
-                {% endif %}</button></td>
-                <td><button class="btn btn-default btn-own" type="submit" name="action" value={% if row.regular_user %}
-                    "remove;regular"
                 {% else %}
                     "give;regular"
                 {% endif %}
-                {% if current_user.id == row.id %}
+                {% if current_user.id == row.id or row.admin%}
                     disabled
                 {% endif %} >{% if row.regular_user %}
                 Remove regular user role

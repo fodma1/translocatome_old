@@ -59,9 +59,12 @@
                     <li><a href="{{ url_for('user_profile_page') }}">User profile</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_authenticated() %}
                     <li><a href="{{ url_for('user_profile_page') }}">{{ current_user.first_name or current_user.user_auth.username }}</a></li>
                     <li><a href="{{ url_for('user.logout') }}">Sign out</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('user.login') }}">Sign in</a></li>
+                    {% endif %}
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
