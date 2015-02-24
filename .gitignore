@@ -67,3 +67,7 @@ app/config/local_settings.py
 
 # Init bash script
 init.sh
+
+# Misc
+dump.sql
+converted.sql

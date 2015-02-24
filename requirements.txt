@@ -8,6 +8,8 @@ psycopg2==2.5.4
 # Flask Framework
 Flask==0.10.1
 Flask-SQLAlchemy==2.0
+MySQL-python==1.2.3
+PyMySQL
 
 # Flask Packages
 Flask-User==0.6.1
