@@ -16,7 +16,17 @@
                 <td><span>{{ row.name | safe}}</span></td>
                 <input type="hidden" name="user-id" value={{ row.id }} />
                 <td><button class="btn btn-default btn-own" type="submit" name="action" value={% if row.regular_user %}
-                "remove;regular"
+                    "remove;regular"
+                    {% else %}
+                    "give;regular"
+                    {% endif %}
+                    {% if current_user.id == row.id or row.admin%}
+                    disabled
+                    {% endif %} >{% if row.regular_user %}
+                    Remove regular user role
+                    {% else %}
+                    Give regular user role
+                    {% endif %}</button></td>
                 <td><button class="btn btn-default btn-own" type="submit" name="action" value={% if row.admin %}
                     "remove;admin"
                     {% else %}
@@ -26,18 +36,8 @@
                     disabled
                     {% endif %} >{% if row.admin %}
                     Remove admin role
-                {% endif %}</button></td>
-                {% else %}
-                Give admin role
-                {% else %}
-                    "give;regular"
-                {% endif %}
-                {% if current_user.id == row.id or row.admin%}
-                    disabled
-                {% endif %} >{% if row.regular_user %}
-                Remove regular user role
-                {% else %}
-                Give regular user role
+                    {% else %}
+                    Give admin role
                 {% endif %}</button></td>
             </form>
         </tr>
