@@ -1,0 +1,17 @@
+{% extends "base_templates/page_base.html" %}  {# base_templates/page_base.html extends base_templates/base.html #}
+
+{% block main %}
+<h1>Viewer page</h1>
+</br>
+<p>On this page you can browse the comppi database</p>
+</br>
+<div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for..." id="proteinId">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="clicked();">Search!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+
+{% endblock %}

@@ -19,4 +19,4 @@ def get_users_and_roles():
 def render_admin_page():
     users_and_roles = get_users_and_roles()
     print users_and_roles
-    return render_template('pages/admin_page.html',usersAndRoles=users_and_roles)
+    return render_template('pages/admin_page.html', usersAndRoles=users_and_roles)

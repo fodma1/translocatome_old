@@ -5,6 +5,7 @@
 from __future__ import print_function   # Use print() instead of print
 from flask import url_for
 
+
 def test_simple_urls(app):
     """
     Visit 'simple' URLs known to the Flask application.

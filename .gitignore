@@ -71,3 +71,5 @@ init.sh
 # Misc
 dump.sql
 converted.sql
+jquery-2.1.3.min.js
+bower_components

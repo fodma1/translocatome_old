@@ -8,9 +8,8 @@ from flask_user import login_required, roles_required
 
 from app.app_and_db import app
 
-from app.pages.adminpage import render_admin_page
-from app.pages.adminpagecontroller import process_admin_page_request
-
+from app.pages.admin_page import render_admin_page
+from app.pages.admin_page_controller import process_admin_page_request
 
 
 # The Home page is accessible to anyone
@@ -28,6 +27,13 @@ def member_page():
 @app.route('/admin', methods=['GET', 'POST'])
 @roles_required('admin')    # Limits access to users with the 'admin' role
 def admin_page():
-    if request.method == "POST" :
+    if request.method == "POST":
         process_admin_page_request(request)
     return render_admin_page()
+
+@app.route('/viewer', methods=['GET', 'POST'])
+def viewer_page():
+    if request.method == "POST":
+        print request.form['searchKeyword']
+        return "Dummy"
+    return render_template('pages/viewer_page.html')
