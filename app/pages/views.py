@@ -11,6 +11,9 @@ from app.app_and_db import app
 from app.pages.admin_page import render_admin_page
 from app.pages.admin_page_controller import process_admin_page_request
 
+from app.comppi.views import query_database
+
+import json
 
 # The Home page is accessible to anyone
 @app.route('/')
@@ -34,6 +37,7 @@ def admin_page():
 @app.route('/viewer', methods=['GET', 'POST'])
 def viewer_page():
     if request.method == "POST":
-        print request.form['searchKeyword']
-        return "Dummy"
+        search_keyword = request.form['searchKeyword']
+        query_result = query_database(search_keyword)
+        return query_result
     return render_template('pages/viewer_page.html')

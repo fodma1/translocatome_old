@@ -5,6 +5,7 @@
 from flask_user import UserMixin
 from app.app_and_db import db
 
+
 # Define the User data model. Make sure to add the flask_user.UserMixin !!
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -21,7 +22,7 @@ class User(db.Model, UserMixin):
     # Relationships
     user_auth = db.relationship('UserAuth', uselist=False)
     roles = db.relationship('Role', secondary='user_roles',
-            backref=db.backref('users', lazy='dynamic'))
+                            backref=db.backref('users', lazy='dynamic'))
 
 
 # Define the UserAuth data model.

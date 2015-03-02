@@ -4,6 +4,6 @@ function clicked(){
         '/viewer',
         {searchKeyword:searchFieldContent},
         function(retrievedData){
-            alert(retrievedData);
+            console.log(retrievedData.json_list);
     });
 }
